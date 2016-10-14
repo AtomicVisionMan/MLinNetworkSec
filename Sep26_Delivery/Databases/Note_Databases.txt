@@ -1,0 +1,7 @@
+1.Create a folder called TestDoc in webapps folder of apachetomcat 
+		Eg: C:\apachetomcat9\webapps\TestDoc
+2.Copy 4 databases (only mat files and paste them in TestDoc folder)
+•	caida1tcpsync.mat -- test tcp sync database
+•	tcp2tracePsh.mat -- test tcp Push Ack database
+•	trace1udp.mat -- test udp database
+•	caida1icmp.mat -- test icmp database 

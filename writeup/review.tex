@@ -1,0 +1,119 @@
+\documentclass[a4paper]{article}
+\usepackage[english]{babel}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\title{Initial Literature Review for IDS System }
+\author{}
+\date{11 October 2016}
+
+\begin{document}
+\maketitle
+	
+
+\section{Introduction}
+In total three papers are reviewed to compare the advantages and disadvantages of different machine learning techniques in the use for Intrusion Detection and Intrusion Prevention system.
+
+The papers under reviewing are listed as follows:
+\begin{itemize}
+	\item Thapngam, Shui and Wanlei \cite{thapngam2012ddos}
+	\item Aghdam \& Kabiri, 2016 \cite{aghdam2016feature}
+	\item Fernandes, et al. \cite{fernandes2016network}
+\end{itemize}
+
+\section{Related Work}
+Network intrusion detection gained a lot of attention from the security expert. Intrusion detection system has been designed for the purpose detecting attack and comprises of detection method that can be anomaly based or it can be signature based. 
+% Ant Colony Optimization and Feature Selection for Intrusion Detection
+% https://www.quora.com/How-do-I-perform-feature-selection
+
+\subsection{DDoS Detection using LDA}
+In this paper\cite{thapngam2012ddos}, authors propose to use the supervised learning model based on Linear Discriminant Analysis (LDA) from the pattern behaviour of traffic sources by observing packet arrivals. The learnt model is then used to discriminate traffic flows among DDoS attack sources and legitimate users.
+
+%\begin{itemize}
+%	\item Image Processing Techniques
+%	\begin{itemize}
+%		\item Different Feature Detectors (SIFT, SURF, FAST, OBR etc.) + Descriptors(SURF, ORB, BRISK etc.)		
+%		\item Object Detection		
+%		\item Change Detection
+%		\item OCR - Capture2Text, which is entirely dependent on tesseract for OCR and leptonica for image processing
+%		\item Research on Blurry Detection
+%			\begin{itemize}
+%				\item Different types of blur, e.g. out of focus, motion blur or camera shake
+%				\item Various blur metrics, based on image contrast, image curvature, Laplacian energy and Variance, ACMO (Absolute Central Moment), DCTE (DCT energy ratio), CPBDM (cumulative probability of blur detection)
+%				\item Online resources
+%					\begin{itemize}
+%						\item Focus Measure ~\cite{fmeasure}
+%						\item ASU implementation for CPBDM \& JNB (Just Noticeable Blur)~\cite{asu}
+%						\item VQMT – Video Quality Measurement Tool by the EPFL~\cite{vqmt}
+%						\item MSU Video Quality Tool, a commercial software~\cite{msu}
+%					\end{itemize}
+%			\end{itemize}
+%		\item  MATLAB licence??
+% 
+%	\end{itemize}
+%	
+%	\item Integrated into a single unified framework
+%	\item Added a separate configuration file no need to re-compile
+%
+%\end{itemize}
+
+
+\subsection{Feature Selection using ACO}
+In this paper, authors has proposed an intrusion detection system that its features are optimally selected using Ant Colony Optimization (ACO)  \cite{aghdam2016feature}. The purpose of this study is to identify important features in building an intrusion detection system such that they are computationally efficient and effective. The proposed method outperforms previous approaches through the extensive experimental results on the KDD Cup 99 and NSL-KDD intrusion detection benchmark data sets by providing higher accuracy in detecting intrusion attempts and lower false alarm with reduced number of features.
+
+
+%One technique to select features is using some ranking criteria to rank features for example: 
+%1) Correlation Criteria: with this criteria you can rank features in order of their correlation with the labels of the data.
+%
+%2)Mutual Information Criteria: high mutual information of a feature with the label means high relevance of that feature. 
+%
+%Another technique is Wrapper methods.
+
+\subsection{Network Anomaly Detection by PCA + ACO}
+Aiming an automated management to detect and prevent potential problems, the authors present and compare two novel anomaly detection mechanisms based on statistical procedure Principal Component Analysis and the Ant Colony Optimization metaheuristic \cite{fernandes2016network}. These methods generate a traffic profile, called Digital Signature of Network Segment using Flow analysis (DSNSF), which is adopted as normal network behavior. Then, this signature is compared with the real network traffic by using a modification of the Dynamic Time Warping metric in order to recognize anomalous events. 
+	
+\section{Proposed Method}
+Anomaly-based IDS such as \cite{thapngam2012ddos} usually deals with statistical analysis and pattern recognition problems. Supervised learning approach for the detection method finds the relationship between the feature and its class. These DDoS detection method highly depends on the quality of the input features. Therefore, irrelevant, redundant, and noisy features must be eliminated before applying supervised algorithm. 
+
+This can be done by feature selection method, as did in \cite{aghdam2016feature}. Feature selection means selecting a useful subset from all features. So one must not transform input features into another set of features  in feature selection. Therefore, their method suffers from high computational expense due to large amount of network traffic data and high dimensional feature space.
+
+%In this paper ant colony optimization has been applied for feature selection on KDD99 dataset. The reduced dataset is validated using support vector machine. Results show that accuracy of the SVM is significantly improved with reduced feature set.
+
+To summary, the limitations of previous work (hence the contributions of proposed method) are:
+\begin{description}
+	\item [LDA for DDoS Detection \cite{thapngam2012ddos}]:
+		\begin{itemize}
+			\item No feature selection
+			\item No feature dimensionality reduction
+		\end{itemize}	 
+	\item [ACO for Feature Selection \cite{aghdam2016feature}]:
+		\begin{itemize}
+			\item No feature dimensionality reduction
+		\end{itemize}
+	
+	\item[PCA + ACO for Network Anomaly Detection \cite{fernandes2016network}]:
+		\begin{itemize}
+			\item PCA and ACO are mainly used to generate Digital Signature of Network Segment for the purpose of anomaly detection in later process
+			\item Performance is rather limited as the authors only used simple adaptive Dynamic Time Warping method for anomaly detection
+			\item The proposed method improved the results by using state-of-the-art neural network classifier
+		\end{itemize}
+\end{description}
+
+
+
+
+\begin{thebibliography}{99}
+
+\bibitem{thapngam2012ddos} Thapngam, Theerasak, Shui Yu, and Wanlei Zhou. "DDoS discrimination by linear discriminant analysis (LDA)." \textit{Computing, Networking and Communications (ICNC), 2012 International Conference on}. IEEE, 2012.
+
+\bibitem{aghdam2016feature} Aghdam, Mehdi Hosseinzadeh, and Peyman Kabiri. "Feature selection for intrusion detection system using ant colony optimization." \textit{International Journal of Network Security} 18.3 (2016): 420-432.
+
+\bibitem{fernandes2016network} Fernandes, Gilberto, et al. "Network anomaly detection using IP flows with Principal Component Analysis and Ant Colony Optimization." \textit{Journal of Network and Computer Applications} 64 (2016): 1-11.
+
+\end{thebibliography}
+
+\end{document}
+
+
