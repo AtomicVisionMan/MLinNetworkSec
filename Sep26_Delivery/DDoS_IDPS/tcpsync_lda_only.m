@@ -86,6 +86,8 @@ for d2=1:D2
     
 end
 
+set(gcf, 'position', get(0, 'screensize'));
+saveas(gcf, 'results1\data_TCP+LDA.jpg');
 
 %%
 % Classification using FeedForward Networks
@@ -127,11 +129,18 @@ testT = t;
 
 testY = net(testX);
 
+plotperform(tr);
+saveas(gcf, 'results1\perf_TCP+LDA.jpg');
+plottrainstate(tr);
+saveas(gcf, 'results1\trstate_TCP+LDA.jpg');
+
 %Plotting
 figure
 plotconfusion(testT,testY);
+saveas(gcf, 'results1\confusion_TCP+LDA.jpg');
 figure
 plotroc(testT,testY);
+saveas(gcf, 'results1\roc_TCP+LDA.jpg');
 
 %Plot Errors
 errors=testT-testY;
@@ -141,6 +150,7 @@ plot([1:length(E)],E);%#ok
 xlabel('Instances');
 ylabel('Errors=target-outputs');
 title('Errors Plot');
+saveas(gcf, 'results1\errplot_TCP+LDA.jpg');
 
 %%
 %Metrics Calculation
@@ -163,6 +173,21 @@ FallOut = ( FP /(FP + TN))*100;               %False POsitive Rate
 NPV = (TN / (TN + FN))*100;                   %NEgaitve Predictive Value
 
 ID_Met = [Precision;Accuracy;Sensitivity;Specificity;Fscore;FallOut;NPV];
+
+fid0=fopen('scores_TCP+LDA.txt','w');
+
+fprintf(fid0,'Precision: %.2f\n', Precision);
+fprintf(fid0,'Accuracy: %.2f\n', Accuracy);
+fprintf(fid0,'Sensitivity: %.2f\n', Sensitivity);
+fprintf(fid0,'Specificity: %.2f\n', Specificity);
+fprintf(fid0,'Fscore: %.2f\n', Fscore);
+fprintf(fid0,'FallOut: %.2f\n', FallOut);
+fprintf(fid0,'NPV: %.2f\n', NPV);
+
+fprintf(fid0,'%.2f  %.2f  %.2f  %.2f  %.2f  %.2f  %.2f\n', Precision,Accuracy,Sensitivity,Specificity,Fscore,FallOut,NPV);
+fprintf(fid0,'%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n', Precision,Accuracy,Sensitivity,Specificity,Fscore,FallOut,NPV);
+fprintf(fid0,'%.2f; %.2f; %.2f; %.2f; %.2f; %.2f; %.2f\n', Precision,Accuracy,Sensitivity,Specificity,Fscore,FallOut,NPV);
+fclose(fid0);
 
 %%
 %INtrusion Prevention System

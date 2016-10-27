@@ -47,6 +47,9 @@ for d1=1:D1
     grid on;  
 end
 
+set(gcf, 'position', get(0, 'screensize'));
+saveas(gcf, 'results\data_UDP+proposed.jpg');
+
 %%
 %LDA 
 S1={};
@@ -119,6 +122,9 @@ for d2=1:D2
     
 end
 
+set(gcf, 'position', get(0, 'screensize'));
+saveas(gcf, 'results\data1_UDP+proposed.jpg');
+
 %%
 %ALO Optimizer
 inalo=LDA_out;
@@ -164,11 +170,18 @@ testT = t;
 
 testY = net(testX);
 
+plotperform(tr);
+saveas(gcf, 'results\perf_UDP+proposed.jpg');
+plottrainstate(tr);
+saveas(gcf, 'results\trstate_UDP+proposed.jpg');
+
 %Plotting
 figure
 plotconfusion(testT,testY);
+saveas(gcf, 'results\confusion_UDP+proposed.jpg');
 figure
 plotroc(testT,testY);
+saveas(gcf, 'results\roc_UDP+proposed.jpg');
 
 %Plot Errors
 errors=testT-testY;
@@ -178,6 +191,7 @@ plot([1:length(E)],E);%#ok
 xlabel('Instances');
 ylabel('Errors=target-outputs');
 title('Errors Plot');
+saveas(gcf, 'results\errplot_UDP+proposed.jpg')
 
 %%
 %Metrics Calculation
@@ -201,6 +215,21 @@ NPV = (TN / (TN + FN))*100;                   %NEgaitve Predictive Value
 
 ID_Met = [Precision;Accuracy;Sensitivity;Specificity;Fscore;FallOut;NPV];
 
+fid0=fopen('scores_UDP+proposed.txt','w');
+
+fprintf(fid0,'Precision: %.2f\n', Precision);
+fprintf(fid0,'Accuracy: %.2f\n', Accuracy);
+fprintf(fid0,'Sensitivity: %.2f\n', Sensitivity);
+fprintf(fid0,'Specificity: %.2f\n', Specificity);
+fprintf(fid0,'Fscore: %.2f\n', Fscore);
+fprintf(fid0,'FallOut: %.2f\n', FallOut);
+fprintf(fid0,'NPV: %.2f\n', NPV);
+
+fprintf(fid0,'%.2f  %.2f  %.2f  %.2f  %.2f  %.2f  %.2f\n', Precision,Accuracy,Sensitivity,Specificity,Fscore,FallOut,NPV);
+fprintf(fid0,'%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n', Precision,Accuracy,Sensitivity,Specificity,Fscore,FallOut,NPV);
+fprintf(fid0,'%.2f; %.2f; %.2f; %.2f; %.2f; %.2f; %.2f\n', Precision,Accuracy,Sensitivity,Specificity,Fscore,FallOut,NPV);
+fclose(fid0);
+
 %%
 %Plot the attack and normal traffic with reduced dataset
 figure;
@@ -208,6 +237,7 @@ plot([1:N],antlions_fitness);%#ok
 xlabel('Sample Index');
 ylabel('Traffic Fitness');
 title('Traffic Data');
+saveas(gcf, 'results\traffic_UDP+proposed.jpg');
 
 %%
 %INtrusion Prevention System

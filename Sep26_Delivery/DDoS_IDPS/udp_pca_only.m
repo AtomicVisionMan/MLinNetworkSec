@@ -81,6 +81,9 @@ for d1=1:D1
     grid on;  
 end
 
+set(gcf, 'position', get(0, 'screensize'));
+saveas(gcf, 'results\data_UDP+PCA.jpg');
+
 %%
 S2={};
 for ii=1:N
@@ -115,11 +118,18 @@ testT = t;
 
 testY = net(testX);
 
+plotperform(tr);
+saveas(gcf, 'results\perf_UDP+PCA.jpg');
+plottrainstate(tr);
+saveas(gcf, 'results\trstate_UDP+PCA.jpg');
+
 %Plotting
 figure
 plotconfusion(testT,testY);
+saveas(gcf, 'results\confusion_UDP+PCA.jpg');
 figure
 plotroc(testT,testY);
+saveas(gcf, 'results\roc_UDP+PCA.jpg');
 
 %Plot Errors
 errors=testT-testY;
@@ -129,6 +139,8 @@ plot([1:length(E)],E);%#ok
 xlabel('Instances');
 ylabel('Errors=target-outputs');
 title('Errors Plot');
+saveas(gcf, 'results\errplot_UDP+PCA.jpg');
+
 
 
 %%
@@ -152,6 +164,21 @@ FallOut = ( FP /(FP + TN))*100;               %False POsitive Rate
 NPV = (TN / (TN + FN))*100;                   %NEgaitve Predictive Value
 
 ID_Met = [Precision;Accuracy;Sensitivity;Specificity;Fscore;FallOut;NPV];
+fid0=fopen('scores_UDP+PCA.txt','w');
+
+fprintf(fid0,'Precision: %.2f\n', Precision);
+fprintf(fid0,'Accuracy: %.2f\n', Accuracy);
+fprintf(fid0,'Sensitivity: %.2f\n', Sensitivity);
+fprintf(fid0,'Specificity: %.2f\n', Specificity);
+fprintf(fid0,'Fscore: %.2f\n', Fscore);
+fprintf(fid0,'FallOut: %.2f\n', FallOut);
+fprintf(fid0,'NPV: %.2f\n', NPV);
+
+fprintf(fid0,'%.2f  %.2f  %.2f  %.2f  %.2f  %.2f  %.2f\n', Precision,Accuracy,Sensitivity,Specificity,Fscore,FallOut,NPV);
+fprintf(fid0,'%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n', Precision,Accuracy,Sensitivity,Specificity,Fscore,FallOut,NPV);
+fprintf(fid0,'%.2f; %.2f; %.2f; %.2f; %.2f; %.2f; %.2f\n', Precision,Accuracy,Sensitivity,Specificity,Fscore,FallOut,NPV);
+fclose(fid0);
+
 
 %%
 %Plot the attack and normal traffic with reduced dataset
@@ -160,6 +187,7 @@ plot([1:N],input(1,:));%#ok
 xlabel('Sample Index');
 ylabel('Traffic Fitness');
 title('Traffic Data');
+saveas(gcf, 'results\traffic_UDP+PCA.jpg');
 
 %%
 %INtrusion Prevention System
