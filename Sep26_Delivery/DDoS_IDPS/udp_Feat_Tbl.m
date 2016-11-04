@@ -11,7 +11,7 @@ clc
 
 
 %Load the Database with both normal and udp attack records from Cloud
-load('C:\apachetomcat9\webapps\TestDoc\trace1udp.mat')
+load('/Users/leon/Developer/MachineLearning/MLinNetworkSec/Sep26_Delivery/Databases/trace1udp.mat')
 file2udp=file1udp;
 No_Pckts = size(file2udp,1);
 
@@ -37,6 +37,8 @@ myStr=[];
 %Feature Extraction
 %Find the correct number of Destination IPs
 for j=1:numel(uniq_SrcIP)
+%     printf('IP %d', str2num(j));
+    disp([ 'IP ' int2str(j) ]);
     Npck=0;NoBytes=0;IPtime=0;
     nudp=0;ntcp=0;nicmp=0;srcnt=0;dstcnt=0;
     for ii=1:No_Pckts
